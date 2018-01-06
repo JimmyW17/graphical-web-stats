@@ -16,10 +16,12 @@ class WebpageController < ApplicationController
         uri = Addressable::URI.parse(params[:url])
         protocol = uri.normalized_scheme
         resource = uri.normalized_host
+        domain = get_domain(resource)
         @webpage = Webpage.create(
           url: url,
           protocol: protocol,
-          resource: resource
+          resource: resource,
+          domain: domain
         )
         redirect_to webpage_path(@webpage)
       end
@@ -38,6 +40,10 @@ class WebpageController < ApplicationController
     false
   rescue URI::InvalidURIError
     false
+  end
+
+  def get_domain(resource)
+    resource.start_with?('www.') ? resource[4..-1] : resource
   end
 
 end

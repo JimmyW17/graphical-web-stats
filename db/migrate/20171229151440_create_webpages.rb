@@ -5,6 +5,7 @@ class CreateWebpages < ActiveRecord::Migration[5.1]
       t.string :url
       t.string :protocol
       t.string :resource
+      t.string :domain
       t.integer :checked_count
       t.timestamps
     end

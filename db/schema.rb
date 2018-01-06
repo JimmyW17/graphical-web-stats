@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20171229151440) do
     t.string "url"
     t.string "protocol"
     t.string "resource"
+    t.string "domain"
     t.integer "checked_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
