@@ -1,4 +1,6 @@
 class WebpageController < ApplicationController
+  require 'open-uri'
+
   def show
     @webpage = Webpage.find(params[:id])
   end
@@ -10,11 +12,14 @@ class WebpageController < ApplicationController
         @webpage.increment!(:checked_count)
         redirect_to webpage_path(@webpage)
       else
-        url = params[:url].sub(/^https?\:\/\//, '').sub(/^www./,'')
-        domain = Addressable::URI.parse(params[:url]).host
+        url = params[:url]
+        uri = Addressable::URI.parse(params[:url])
+        protocol = uri.normalized_scheme
+        resource = uri.normalized_host
         @webpage = Webpage.create(
           url: url,
-          domain: domain
+          protocol: protocol,
+          resource: resource
         )
         redirect_to webpage_path(@webpage)
       end

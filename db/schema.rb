@@ -14,7 +14,8 @@ ActiveRecord::Schema.define(version: 20171229151440) do
 
   create_table "webpages", id: :string, limit: 36, force: :cascade do |t|
     t.string "url"
-    t.string "domain"
+    t.string "protocol"
+    t.string "resource"
     t.integer "checked_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

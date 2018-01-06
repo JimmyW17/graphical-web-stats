@@ -3,7 +3,8 @@ class CreateWebpages < ActiveRecord::Migration[5.1]
     create_table :webpages, id: false do |t|
       t.string :id, limit: 36, primary_key: true
       t.string :url
-      t.string :domain
+      t.string :protocol
+      t.string :resource
       t.integer :checked_count
       t.timestamps
     end
