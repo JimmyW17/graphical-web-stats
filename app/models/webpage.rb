@@ -5,7 +5,7 @@ class Webpage < ApplicationRecord
   private
 
   def set_uuid
-    self.id = SecureRandom.uuid
+    self.id = Digest::SHA1.hexdigest([Time.now, rand].join)[0..20]
   end
   
   def default_values
