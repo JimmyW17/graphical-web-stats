@@ -1,7 +1,14 @@
 url: <%= @webpage.url %>
 <br>
+times checked: <%= @webpage.checked_count %>
+<br>
+protocol: <%= @webpage.protocol %>
+<br>
 resource: <%= @webpage.resource %>
 <br>
 domain: <%= @webpage.domain %>
 <br>
 <%= link_to  "Home", root_path %>
+
+source: <br>
+<%= @source %>

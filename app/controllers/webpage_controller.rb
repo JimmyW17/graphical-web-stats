@@ -2,7 +2,8 @@ class WebpageController < ApplicationController
   require 'open-uri'
 
   def show
-    @webpage = Webpage.find(params[:id])
+    @webpage = Webpage.friendly.find(params[:id])
+    @source = Nokogiri::HTML(open(@webpage.url, 'User-Agent' => 'graphical-web-stats'))
   end
 
   def check
@@ -10,6 +11,7 @@ class WebpageController < ApplicationController
       @webpage = Webpage.find_by url: params[:url]
       if @webpage
         @webpage.increment!(:checked_count)
+        add_history_and_source
         redirect_to webpage_path(@webpage)
       else
         url = params[:url]
@@ -23,6 +25,7 @@ class WebpageController < ApplicationController
           resource: resource,
           domain: domain
         )
+        add_history_and_source
         redirect_to webpage_path(@webpage)
       end
     else
@@ -41,9 +44,15 @@ class WebpageController < ApplicationController
   rescue URI::InvalidURIError
     false
   end
-
+  
   def get_domain(resource)
     resource.start_with?('www.') ? resource[4..-1] : resource
+  end
+
+  def add_history_and_source
+    page_history = @webpage.page_histories.create
+    html = Nokogiri::HTML(open(@webpage.url, 'User-Agent' => 'graphical-web-stats'))
+    page_history.create_page_source(html: html)
   end
 
 end
