@@ -7,6 +7,10 @@ class Webpage < ApplicationRecord
   before_save :default_values
   friendly_id :uuid
 
+  def page_source
+    page_sources.last
+  end
+
   private
 
   def set_uuid

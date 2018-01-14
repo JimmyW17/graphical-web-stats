@@ -3,7 +3,7 @@ class WebpageController < ApplicationController
 
   def show
     @webpage = Webpage.friendly.find(params[:id])
-    @source = Nokogiri::HTML(open(@webpage.url, 'User-Agent' => 'graphical-web-stats'))
+    @source = @webpage.page_source.try(:html)
   end
 
   def check
