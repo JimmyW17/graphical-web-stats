@@ -38,7 +38,7 @@ class WebpageController < ApplicationController
     @webpages = Webpage.all
     
     respond_to do |format|
-      format.json { render json: @webpage_urls }
+      format.json { render json: @@webpages }
     end
   end
 
