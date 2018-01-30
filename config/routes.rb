@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :webpage
   post 'check_webpage' => 'webpage#check'
+  get 'webpages' => 'webpage#webpages'
 end

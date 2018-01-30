@@ -34,6 +34,14 @@ class WebpageController < ApplicationController
     end
   end
 
+  def webpages
+    @webpages = Webpage.all
+    
+    respond_to do |format|
+      format.json { render json: @webpage_urls }
+    end
+  end
+
   private
 
   def uri?(string)
